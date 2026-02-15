@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will you be my Valentine?</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #fff0f5;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* centrování obsahu */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* nadpis */
+h1 {
+    margin-top: 40px;
+    font-size: 40px;
+}
+
+/* kapybara */
+.capybara {
+    width: 250px;
+    margin-top: 20px;
+}
+
+/* tlačítka */
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    font-size: 20px;
+    padding: 12px 26px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.yes {
+    background: #4CAF50;
+    color: white;
+}
+
+.no {
+    background: #e74c3c;
+    color: white;
+    position: relative;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* vstupenka po kliknutí */
+.ticket {
+    width: 90%;
+    max-width: 700px;
+    margin-top: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    animation: win 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes win {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+}
+
+/* padající srdíčka */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear forwards;
+    color: red;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="intro">
+    <h1>Will you be my Valentine?</h1>
+
+    <img class="capybara" src="flat_750x_075_f-pad_750x1000_f8f8f8-removebg-preview (1).jpg">
+
+    <div class="buttons">
+        <button class="yes" onclick="showTicket()">Yes</button>
+        <button class="no" onmouseover="moveNo()">No</button>
+    </div>
+</div>
+
+<!-- výhra src="ticket.jpg"-->
+<div class="container" id="gift" style="display:none;">
+    <h1>Zvu tě! ❤️</h1>
+    <img class="ticket" src="Adobe Express - file.png">
+</div>
+
+<script>
+/* utíkající NO */
+function moveNo() {
+    const btn = document.querySelector('.no');
+    btn.style.position = 'absolute';
+    btn.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+    btn.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+}
+
+/* kliknutí YES → nová obrazovka */
+function showTicket() {
+    document.getElementById("intro").style.display = "none";
+    document.getElementById("gift").style.display = "flex";
+}
+
+/* srdíčka – pomalejší a plynulá */
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "❤";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 4 + 4) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
